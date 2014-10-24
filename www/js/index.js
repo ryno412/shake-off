@@ -267,20 +267,31 @@ var app = {
     $('.btn-race-mode').on(tap, function () {
       app.showPage('.options-page-race');
     });
+
     $('.options-page-time .button').on(tap, function (e) {
       // Create a new game with the chosen time
       var targetTime = $(e.target).attr('data-value');
-      app.game = new Game({ endTimeMs: (targetTime*1000) });
-
-      app.showPage('.game-page');
+      if (targetTime) {
+        app.game = new Game({ endTimeMs: (targetTime*1000) });
+        app.showPage('.game-page');
+      }
     });
+    $('.options-page-time .back-button').on(tap, function (e) {
+      app.showPage('.title-page');
+    });
+
     $('.options-page-race .button').on(tap, function (e) {
       // Create a new game with the chosen count
       var targetCount = $(e.target).attr('data-value');
-      app.game = new Game({ endCount: targetCount });
-
-      app.showPage('.game-page');
+      if (targetCount) {
+        app.game = new Game({ endCount: targetCount });
+        app.showPage('.game-page');
+      }
     });
+    $('.options-page-race .back-button').on(tap, function (e) {
+      app.showPage('.title-page');
+    });
+
     $('.play-again-button').on(tap, function (e) {
       app.showPage('.title-page');
     });

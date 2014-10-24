@@ -87,6 +87,12 @@ body {
     left: 0;
     right: 0;
 }
+.top-box { 
+    position: fixed;
+    top: 0; /* Should match height of ad */
+    left: 0;
+    right: 0;
+}
 
 /* Ads */
 .ad-bottom {
@@ -125,6 +131,10 @@ body {
 .button:active {
     background-image: none;
     background-color: #f06d06;
+}
+.back-button {
+    display: inline-block;
+    margin: -4px;
 }
 
 /* Hand background */
@@ -191,6 +201,11 @@ body {
 
 
 
-
+.title-page h1 {
+    color: white;
+    text-shadow: 12px 12px 0 #000, -6px 6px 0 #000, 6px -6px 0 #000, -6px -6px 0 #000;
+    font-size: 88px;
+    text-align: center;
+}
 
 
