@@ -96,7 +96,7 @@ body {
 
 /* Ads */
 .ad-bottom {
-    background: black;
+    background: #222;
     border-top: 4px solid black;
     color: white;
     position: fixed;
@@ -109,6 +109,7 @@ body {
     font-size: 16px;
     font-family: sans-serif;
     text-align: center;
+    line-height: 60px;
 }
 
 /* Simple button */
