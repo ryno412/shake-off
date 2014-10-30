@@ -1,4 +1,5 @@
 
+var DESKTOP = !window.cordova;
 
 function isDefined(a) { return (typeof a !== 'undefined'); }
 
@@ -120,7 +121,8 @@ Game.prototype.redraw = function () {
 Game.prototype.incrementCount = function () {
   if (this.running) {
     this.count++;
-    this.playAudio()
+    $('.shaker').toggleClass('down');
+    //this.playAudio();
     this.checkFinished(); // Check if finished
   }
 };
@@ -155,6 +157,28 @@ Game.prototype.checkFinished = function () {
   }
 };
 
+var Accelerometer = {
+  // Accelerometer variables
+  isUp: true,
+  ygravity: 0,
+
+  handler: function (acceleration) {
+    // Process accelerometer event
+    Accelerometer.ygravity = 0.8*Accelerometer.ygravity + (1-0.8)*acceleration.y;
+    var yaccel = acceleration.y - Accelerometer.ygravity;
+
+    if (app.game && app.game.running) {
+      if (Accelerometer.isUp && yaccel > 5) {
+        Accelerometer.isUp = false;
+        app.game.incrementCount();
+      }
+      else if (!Accelerometer.isUp && yaccel < -5) {
+        Accelerometer.isUp = true;
+        app.game.incrementCount();
+      }
+    }
+  }
+};
 
 var app = {
   game: null,
@@ -164,8 +188,6 @@ var app = {
     this.bindEvents();
   },
 
-  DEBUG: !window.cordova,
-
   // Bind Event Listeners
   //
   // Bind any events that are required on startup. Common events are:
@@ -174,7 +196,7 @@ var app = {
     document.addEventListener('deviceready', this.onDeviceReady, false);
 
     // DEBUG: If not in Cordova, use document.ready
-    if (app.DEBUG) {
+    if (DESKTOP) {
       $(document).ready(this.onDeviceReady);
     }
   },
@@ -264,7 +286,7 @@ var app = {
     console.log('hellow world');
 
     // Add button handlers
-    var tap = (app.DEBUG ? 'click' : 'touchstart');
+    var tap = (DESKTOP ? 'click' : 'touchstart');
     $('.btn-time-mode').on(tap, function () {
       app.showPage('.options-page-time');
     });
@@ -300,14 +322,25 @@ var app = {
       app.showPage('.title-page');
     });
 
+    // Listen for accelerometer (or click) events
+    if (DESKTOP) {
+      // On desktop browsers, listen for clicks
+      $('body').on(tap, function () {
+        if (app.game && app.game.running) {
+          //app.explode();
+          app.game.incrementCount();
+        }
+      });
+    }
+    else {
+      // On mobile devices, listen for accelerometer
+      var watchID = navigator.accelerometer.watchAcceleration(Accelerometer.handler, function () {
+        // Error
+        //console.log('watchAcceleration.onError!');
+      }, { frequency: 40 });
+    }
 
-    $('body').on(tap, function () {
-      if (app.game.running) {
-        $('.shaker').toggleClass('down');
-        //app.explode();
-        app.game.incrementCount();
-      }
-    });
+
 /*
 
     var watchID = navigator.accelerometer.watchAcceleration(function (acceleration) {
