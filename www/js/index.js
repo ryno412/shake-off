@@ -131,7 +131,6 @@ Game.prototype.shakeAudioFiles = ['audio/smw_coin.wav', 'audio/ohYeah.mp3'],
 Game.prototype.bonusAudioFiles = ['audio/ohYeah.mp3'],
 
 Game.prototype.playAudio = function () {
-  console.log(this.count)
   var shakeFactor = 1;
   var bonusFactor = 5;
   var keepGoingFactor = 10
@@ -142,8 +141,13 @@ Game.prototype.playAudio = function () {
 
   var $audioEl = $('#aud');
   if (src) {
-    $audioEl.attr('src', src);
-    $audioEl[0].play(); 
+    var media = new Media(src, function () {
+      console.log('~~~~~~~~~~~~~~~~~~~~ Loaded smw_coin');
+    });
+
+    media.play();
+    //$audioEl.attr('src', src);
+    //$audioEl[0].play(); 
   }
  
 
@@ -305,7 +309,7 @@ var app = {
     });
 
     media.play();*/
-    $('#aud')[0].play();
+
 
     console.log('hellow world');
 
