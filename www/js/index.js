@@ -1,21 +1,4 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+
 
 function isDefined(a) { return (typeof a !== 'undefined'); }
 
@@ -137,9 +120,21 @@ Game.prototype.redraw = function () {
 Game.prototype.incrementCount = function () {
   if (this.running) {
     this.count++;
+    this.playAudio()
     this.checkFinished(); // Check if finished
   }
 };
+
+Game.prototype.playAudio = function () {
+  console.log(this.count)
+  var shakeFactor = 1;
+  var bounsFactor = 5;
+  var keepGoingFactor = 10
+  console.log('bounus' + this.count % bounsFactor)
+  console.log("shake - " + this.count % shakeFactor)
+  //$('#aud')[0].play();
+
+},
 
 Game.prototype.checkFinished = function () {
   if (!this.running) {
@@ -257,6 +252,15 @@ var app = {
   // The scope of 'this' is the event. In order to call the 'receivedEvent'
   // function, we must explicitly call 'app.receivedEvent(...);'
   onDeviceReady: function() {
+
+
+   /*var media = new Media('audio/ohYeah.mp3', function () {
+      console.log('~~~~~~~~~~~~~~~~~~~~ Loaded smw_coin');
+    });
+
+    media.play();*/
+    $('#aud')[0].play();
+
     console.log('hellow world');
 
     // Add button handlers
