@@ -63,43 +63,69 @@ Game.prototype.getReady = function () {
   $('.timer').html('0.00');
 
   var scoreDiv = $('.score');
-  scoreDiv.html('3');
+  scoreDiv.html('');
+
+  var beep1   = new Media('audio/beep1.wav');
+  var beep2   = new Media('audio/beep2.wav');
+  var beep3   = new Media('audio/beep3.wav');
+  var beep_go = new Media('audio/beep_go.wav');
+
+  // ..3..
+  setTimeout(function () {
+    scoreDiv.html('3');
+  }, 900);
+  setTimeout(function () {
+    beep3.play();
+  }, 1000);
 
   // ..2..
   setTimeout(function () {
     scoreDiv.html('2');
-  }, 1200);
+    beep2.play();
+  }, 2000);
 
   // ..1..
   setTimeout(function () {
     scoreDiv.html('1');
-  }, 2200);
+    beep1.play();
+  }, 3000);
 
   // ..GO!..
   setTimeout(function () {
     scoreDiv.html('GO!');
+    beep_go.play();
     _this.start();
-  }, 3200);
+  }, 4000);
+
+  if (!DESKTOP) {
+    this.redrawInterval = navigator.accelerometer.watchAcceleration(Accelerometer.handler, function () {
+      // Error
+      //console.log('watchAcceleration.onError!');
+    }, { frequency: 40 });
+  }
 };
 
 Game.prototype.start = function () {
-  var _this = this;  
+  //var _this = this;  
 
   this.running = true;
   this.startTimeMs = (new Date()).getTime();
-  
-  this.redrawInterval = setInterval(function () {
-    _this.redraw();
-  }, 40);
+
+  if (DESKTOP) {  
+    this.redrawInterval = setInterval(function () {
+      _this.redraw();
+    }, 40);
+  }
 };
 
 Game.prototype.stop = function () {
   this.running = false;
-  clearInterval(this.redrawInterval);
+  if (DESKTOP) clearInterval(this.redrawInterval);
+  else navigator.accelerometer.clearWatch(this.redrawInterval);
 
   // Show funny message
   var message = "Great job!";
-  $('.end-message').html(message);
+  //$('.end-message').html(message);
 
   // Update the UI one last time
   this.redraw();
@@ -127,10 +153,10 @@ Game.prototype.incrementCount = function () {
   }
 };
 
-Game.prototype.shakeAudioFiles = ['audio/smw_coin.wav', 'audio/ohYeah.mp3'],
-Game.prototype.bonusAudioFiles = ['audio/ohYeah.mp3'],
+Game.prototype.coinSoundIndex = 0;
 
 Game.prototype.playAudio = function () {
+/*
   var shakeFactor = 1;
   var bonusFactor = 5;
   var keepGoingFactor = 10
@@ -149,14 +175,21 @@ Game.prototype.playAudio = function () {
     //$audioEl.attr('src', src);
     //$audioEl[0].play(); 
   }
- 
+*/
 
+  if (this.count % 10 === 0) {
+    // Play special effect
+    this.getRandomAudio(this.bonusAudio).play();
+  }
+
+  // Play coin effect
+  this.coinSounds[this.coinSoundIndex++].play();
+  this.coinSoundIndex %= this.coinSounds.length;
 },
-Game.prototype.getAudio = function (audioList) {
+Game.prototype.getRandomAudio = function (audioList) {
   if (Array.isArray(audioList)){
     var num = this.getRandomNum(0, audioList.length);
     return audioList[num];
-
   }
   else {
     console.log('no audio array specified');
@@ -204,6 +237,7 @@ var Accelerometer = {
         Accelerometer.isUp = true;
         app.game.incrementCount();
       }
+      app.game.redraw();
     }
   }
 };
@@ -310,8 +344,18 @@ var app = {
 
     media.play();*/
 
-
-    console.log('hellow world');
+    // Pre-load all the audio files
+    Game.prototype.bonusAudio = [
+      new Media('audio/oh_yeah_robot.wav'),
+      new Media('audio/oh_yeah_robot2.wav'),
+      new Media('audio/oh_yeah1.wav')
+    ];
+    Game.prototype.coinSounds = [
+      new Media('audio/coin.wav'),
+      new Media('audio/coin.wav'),
+      new Media('audio/coin.wav'),
+      new Media('audio/coin.wav')
+    ];
 
     // Add button handlers
     var tap = (DESKTOP ? 'click' : 'touchstart');
@@ -362,10 +406,10 @@ var app = {
     }
     else {
       // On mobile devices, listen for accelerometer
-      var watchID = navigator.accelerometer.watchAcceleration(Accelerometer.handler, function () {
-        // Error
-        //console.log('watchAcceleration.onError!');
-      }, { frequency: 40 });
+      // var watchID = navigator.accelerometer.watchAcceleration(Accelerometer.handler, function () {
+      //   // Error
+      //   //console.log('watchAcceleration.onError!');
+      // }, { frequency: 40 });
     }
 
 
