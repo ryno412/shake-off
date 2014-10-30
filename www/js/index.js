@@ -297,10 +297,10 @@ var app = {
     });
 
 
-    $('.shaker').on('click', function () {
+    $('body').on(tap, function () {
       if (app.game.running) {
         $('.shaker').toggleClass('down');
-        app.explode();
+        //app.explode();
         app.game.incrementCount();
       }
     });

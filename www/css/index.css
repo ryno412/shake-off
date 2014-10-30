@@ -116,12 +116,13 @@ body {
 .button {
     border: 4px solid black;
     color: white;
-    text-shadow: 6px 6px 0 #000, -3px 3px 0 #000, 3px -3px 0 #000, -3px -3px 0 #000;
-    font-size: 44px;
+    cursor: pointer;
+    text-shadow: 4px 4px 0 #000, -3px 3px 0 #000, 3px -3px 0 #000, -3px -3px 0 #000;
+    font-size: 32px;
     padding: 10px;
     text-align: center;
     text-transform: uppercase;
-    margin: 30px 8%;
+    margin: 20px 8%;
     -webkit-user-select: none;
     /* Safari 4, Chrome 1-9, iOS 3.2-4.3, Android 2.1-3.0 */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f06d06), to(red));
@@ -135,7 +136,9 @@ body {
 }
 .back-button {
     display: inline-block;
+    font-size: 22px;
     margin: -4px;
+    text-shadow: 3px 3px 0 #000, -3px 3px 0 #000, 3px -3px 0 #000, -3px -3px 0 #000;
 }
 
 /* Hand background */
@@ -143,7 +146,8 @@ body {
     height: 100%;
     width: 100%;
     background: transparent url(../img/item.png) 50% 0% no-repeat;
-    transition: all 0.5s;
+    transition: all 0.2s;
+    -webkit-transform: translate3D(0,0,0);
 }
 .shaker.down {
     background-position: 50% 100%;
@@ -205,8 +209,9 @@ body {
 .title-page h1 {
     color: white;
     text-shadow: 12px 12px 0 #000, -6px 6px 0 #000, 6px -6px 0 #000, -6px -6px 0 #000;
-    font-size: 88px;
+    font-size: 74px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 
