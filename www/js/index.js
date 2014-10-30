@@ -120,20 +120,44 @@ Game.prototype.redraw = function () {
 Game.prototype.incrementCount = function () {
   if (this.running) {
     this.count++;
-    this.playAudio()
+    this.playAudio();
     this.checkFinished(); // Check if finished
   }
 };
 
+Game.prototype.shakeAudioFiles = ['audio/smw_coin.wav', 'audio/ohYeah.mp3'],
+Game.prototype.bonusAudioFiles = ['audio/ohYeah.mp3'],
+
 Game.prototype.playAudio = function () {
   console.log(this.count)
   var shakeFactor = 1;
-  var bounsFactor = 5;
+  var bonusFactor = 5;
   var keepGoingFactor = 10
-  console.log('bounus' + this.count % bounsFactor)
-  console.log("shake - " + this.count % shakeFactor)
-  //$('#aud')[0].play();
+  var src;
+  if (this.count % shakeFactor === 0) {
+    src = this.getAudio(this.shakeAudioFiles)
+  }
 
+  var $audioEl = $('#aud');
+  if (src) {
+    $audioEl.attr('src', src);
+    $audioEl[0].play(); 
+  }
+ 
+
+},
+Game.prototype.getAudio = function (audioList) {
+  if (Array.isArray(audioList)){
+    var num = this.getRandomNum(0, audioList.length);
+    return audioList[num];
+
+  }
+  else {
+    console.log('no audio array specified');
+  }
+},
+Game.prototype.getRandomNum = function (min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
 },
 
 Game.prototype.checkFinished = function () {
