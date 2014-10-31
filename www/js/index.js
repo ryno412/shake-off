@@ -348,7 +348,11 @@ var app = {
     Game.prototype.bonusAudio = [
       new Media('audio/oh_yeah_robot.wav'),
       new Media('audio/oh_yeah_robot2.wav'),
-      new Media('audio/oh_yeah1.wav')
+      new Media('audio/oh_yeah1.wav'),
+      new Media('audio/awesome1.wav'),
+      new Media('audio/awesome2.wav'),
+      new Media('audio/awesome3.wav'),
+      new Media('audio/money1.wav'),
     ];
     Game.prototype.coinSounds = [
       new Media('audio/coin.wav'),

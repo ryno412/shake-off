@@ -164,7 +164,7 @@ body {
 
     color: #f06d06;
     font-family: '04B19';
-    font-size: 200px;
+    font-size: 180px;
     text-align: center;
     text-shadow: 14px 14px 0 #000, -14px 14px 0 #000, 14px -14px 0 #000, -14px -14px 0 #000;
 }
@@ -174,7 +174,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    padding: 10px;
+    padding: 20px 0 0 10px;
     text-align: left;
 
     color: yellow;

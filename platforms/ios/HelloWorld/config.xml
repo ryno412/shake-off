@@ -29,15 +29,9 @@
     <feature name="Media">
         <param name="ios-package" value="CDVSound" />
     </feature>
-    <feature name="Console">
-        <param name="ios-package" value="CDVLogger" />
-    </feature>
     <feature name="SplashScreen">
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
-    </feature>
-    <feature name="Notification">
-        <param name="ios-package" value="CDVNotification" />
     </feature>
     <name>HelloWorld</name>
     <description>

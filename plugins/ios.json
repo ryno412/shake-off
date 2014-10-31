@@ -31,12 +31,7 @@
                             "count": 1
                         }
                     ],
-                    "AudioToolbox.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
-                    ]
+                    "AudioToolbox.framework": []
                 }
             },
             "config.xml": {
@@ -55,15 +50,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -78,13 +65,7 @@
         "org.apache.cordova.media": {
             "PACKAGE_NAME": "com.example.hello"
         },
-        "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.example.hello"
-        },
         "org.apache.cordova.splashscreen": {
-            "PACKAGE_NAME": "com.example.hello"
-        },
-        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.example.hello"
         }
     },
